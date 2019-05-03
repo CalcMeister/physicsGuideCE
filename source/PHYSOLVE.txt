@@ -1,0 +1,665 @@
+" PhySolver Step-by-step physics solver.
+" Made by Samuel Eaton based off of some existing code by Pedro Cabral - 2019
+
+AxesOff
+
+ClrHome
+Output(3,10,"PhySolver"
+Output(4,5,"Step-by-step physics"
+Output(5,11,"solver."
+Output(7,2,"Press ENTER to continue."
+
+Pause 
+ClrHome
+
+Lbl MN
+Menu("--- PHYSICS TOPICS ---","Dynamics",DY,"Kinematics",KM,"Circular Motion",CM,"Elasticity",EL,"Power",PW,"Quit",QT
+
+Lbl DY
+Disp "Insert the variables:"
+Disp "Unknown Variables = X"
+Input "Force (N) = ",Str1
+Input "Mass (kg) = ",Str2
+Input "Acceleration (m/s^2) = ",Str3
+Input "Velocity (m/s) = ",Str4
+Input "Momentum (Ns) = ",Str5
+Input "Time (s) = ",Str6
+ClrDraw
+Text(0,0,"Force Calculation:"
+Text(15,1,"F = m * a"
+Text(30,1,"F =",B," * ",C
+Text(45,1,"F =",B*C," N"
+Pause 
+ClrDraw
+Text(0,0,"Mass Calculation:"
+Text(15,1,"m = F / a"
+Text(30,1,"m =",A," / ",C
+Text(45,1,"m =",A/C," kg"
+Pause 
+ClrDraw
+Text(0,0,"Acceleration Calc.:"
+Text(15,1,"a = F / m"
+Text(30,1,"a =",A," / ",B
+Text(45,1,"a =",A/B," m/s^2"
+Pause 
+ClrDraw
+Text(0,0,"Momentum Calc. (1):"
+Text(15,1,"p = F * t"
+Text(30,1,"p =",A," * ",F
+Text(45,1,"p =",A*F," Ns"
+Pause 
+ClrDraw
+Text(0,0,"Momentum Calc. (2):"
+Text(15,1,"p = m * v"
+Text(30,1,"p =",B," * ",D
+Text(45,1,"p =",B*D," Ns"
+Pause 
+Goto MN
+
+Lbl KM
+Disp "Insert the variables:
+Disp "Unknown Variables = X
+Input "Final Velocity (m/s) = ",Str1
+Input "Init. Velocity (m/s) = ",Str2
+Input "Acceleration (m/s^2) = ",Str3
+Input "Displacement (m) = ",Str4
+Input "Time (s) = ",Str5
+If Str1!="X"
+expr(Str1->F
+If Str2!="X"
+expr(Str2->I
+If Str3!="X"
+expr(Str3->A
+If Str4!="X"
+expr(Str4->D
+If Str5!="X"
+expr(Str5->T
+ClrDraw
+
+If Str1="X"
+Then
+	If Str2!="X" and Str3!="X" and Str5!="X"
+	Then
+		Text(0,0,"Final Velocity Calculation (1):
+		Text(15,0,"This equation finds Vf when you
+		Text(30,0,"already have Vi, a, and t
+		Text(45,0,"Vf = Vi + a * t
+		Text(60,0,"Vf =",I," + ",A," * ",T
+		Text(75,0,"Vf =",I," + ",A*T
+		Text(90,0,"Vf =",I+(AT)," m/s
+	Else
+		If Str2!="X" and Str3!="X" and Str4!="X"
+		Then
+			Text(0,0,"Final Velocity Calculation (2):
+			Text(15,0,"This equation finds Vf when you
+			Text(30,0,"already have Vi, a, and d
+			Text(45,0,"Vf^2 = Vi^2 + 2 * a * d
+			Text(60,0,"Vf^2 =",I,"^2 + 2 * ",A," * ",D
+			Text(75,0,"Vf^2 =",I,"^2 + ",2AD
+			Text(90,0,"Vf^2 =",I^2+2AD
+			Text(115,0,"Vf = sqrt(",I^2+2AD,")
+			Text(130,0,"Vf = ",sqrt(I^2+2AD)," m/s
+		Else
+			If Str2!="X" and Str4!="X" and Str5!="X"
+			Then
+				Text(0,0,"Final Velocity Calculation (3):
+				Text(15,0,"This equation finds Vf when you
+				Text(30,0,"already have Vi, t, and d
+				Text(45,0,"d = (Vi + Vf) / 2 * t
+				Text(60,0,"Vf = 2 * (d - t) - Vi
+				Text(75,0,"Vf = 2 * (",D," - ",T,") - ",I
+				Text(90,0,"Vf = 2 * ",D-T," - ",I
+				Text(105,0,"Vf = ",2(D-T)," - ",I
+				Text(120,0,"Vf = ",2(D-T)-I," m/s
+			Else
+				Text(0,0,"Final Velocity Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str2="X"
+Then
+	If Str3!="X" and Str4!="X" and Str5!="X"
+	Then
+		Text(0,0,"Initial Velocity Calculation (1):
+		Text(15,0,"This equation finds Vi when you
+		Text(30,0,"already have d, a, and t
+		Text(45,0,"d = Vi * t + (a * t^2) / 2
+		Text(60,0,"Vi = ~(a * t^2 - 2 * d) / 2 * t
+		Text(75,0,"Vi = ~(",A," * ",T,"^2 - 2 * ",D,") / 2 * ",T
+		Text(90,0,"Vi = ~(",A," * ",T^2," - ",2D,") / ",2T
+		Text(105,0,"Vi = ~(",AT^2-2D,") / "2T
+		Text(120,0,"Vi = ",~(AT^2-2D)/2T," m/s
+	Else
+		If Str1!="X" and Str3!="X" and Str5!="X"
+		Then
+			Text(0,0,"Initial Velocity Calculation (2):
+			Text(15,0,"This equation finds Vi when you
+			Text(30,0,"already have Vf, a, and t
+			Text(45,0,"Vf = Vi + a * t
+			Text(60,0,"Vi = Vf - a * t
+			Text(75,0,"Vi = ",F," - ",A," * ",T
+			Text(90,0,"Vi = ",F," - ",AT
+			Text(105,0,"Vi = ",F-AT," m/s
+		Else
+			If Str1!="X" and Str4!="X" and Str5!="X"
+			Then
+				Text(0,0,"Initial Velocity Calculation (3):
+				Text(15,0,"This equation finds Vi when you
+				Text(30,0,"already have Vf, t, and d
+				Text(45,0,"d = (Vi + Vf) / 2 * t
+				Text(60,0,"Vi = (2 * d) / t - f
+				Text(75,0,"Vi = (2 * ",D,") / ",T," - ",F
+				Text(90,0,"Vi = ",2D," / ",T," - ",F
+				Text(105,0,"Vi = ",2D/T," - ",F
+				Text(120,0,"Vi = ",2D/T-F," m/s
+			Else
+				If Str1!="X" and Str3!="X" and Str4!="X"
+				Then
+					Text(0,0,"Initial Velocity Calculation (4):
+					Text(15,0,"This equation finds Vi when you
+					Text(30,0,"already have Vf, a, and d
+					Text(45,0,"Vf^2 = Vi^2 + 2 * a * d
+					Text(60,0,"Vi = sqrt(f^2 - 2 * a * d)
+					Text(75,0,"Vi = sqrt(",F,"^2 - 2 * ",A," * ",D,")
+					Text(90,0,"Vi = sqrt(",F^2," - ",2AD,")
+					Text(105,0,"Vi = sqrt(",F^2-2AD,")
+					Text(120,0,"Vi = ",sqrt(F^2-2AD," m/s
+				Else
+					Text(0,0,"Initial Velocity Calculation is
+					Text(15,0,"impossible. Too little init. data.
+				End
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str3="X"
+Then
+	If Str1!="X" and Str2!="X" and Str5!="X"
+	Then
+		Text(0,0,"Acceleration Calculation (1):
+		Text(15,0,"This equation finds a when you
+		Text(30,0,"already have Vi, Vf, and t
+		Text(45,0,"Vf = Vi + a * t
+		Text(60,0,"a = (Vf - Vi) / t
+		Text(75,0,"a = (",F," - ",I,") / ",T
+		Text(90,0,"a = (",F-I,") / ",T
+		Text(105,0,"a = ",(F-I)/T," m/s^2
+	Else
+		If Str1!="X" and Str2!="X" and Str4!="X"
+		Then
+			Text(0,0,"Acceleration Calculation (2):
+			Text(15,0,"This equation finds a when you
+			Text(30,0,"already have Vi, Vf, and d
+			Text(45,0,"Vf^2 = Vi^2 + 2 * a * d
+			Text(60,0,"a = (f^2 - i^2) / (2 * d)
+			Text(75,0,"a = (",F,"^2 - ",I,"^2) / (2 * ",D,")
+			Text(90,0,"a = (",F^2," - ",I^2,") / ",2D
+			Text(105,0,"a = ",F^2-I^2," / ",2D
+			Text(120,0,"a = ",(F^2-I^2)/2D," m/s^2
+		Else
+			If Str2!="X" and Str4!="X" and Str5!="X"
+			Then
+				Text(0,0,"Acceleration Calculation (3):
+				Text(15,0,"This equation finds a when you
+				Text(30,0,"already have Vi, d, and t
+				Text(45,0,"d = Vi * t + (a * t^2) / 2
+				Text(60,0,"a = (~2 * (i * t - d)) / t^2
+				Text(75,0,"a = (~2 * (",I," * ",T," - ",D,")) / ",T,"^2 
+				Text(90,0,"a = (~2 * (",IT," - ",D,")) / ",T^2
+				Text(105,0,"a = (~2 * (",IT-D,")) / ",T^2
+				Text(120,0,"a = (",~2(IT-D),") / ",T^2
+				Text(135,0,"a = ",~2(IT-D)/T^2," m/s^2
+			Else
+				Text(0,0,"Acceleration Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str4="X"
+Then
+	If Str1!="X" and Str2!="X" and Str5!="X"
+	Then
+		Text(0,0,"Displacement Calculation (1):
+		Text(15,0,"This equation finds d when you
+		Text(30,0,"already have Vi, Vf, and t
+		Text(45,0,"d = (Vi + Vf) / 2 * t
+		Text(60,0,"d = (",I," + ",F,") / 2 * ",T
+		Text(75,0,"d = ",I+F," / 2 * ",T
+		Text(90,0,"a = ",(I+F)/2," * ",T
+		Text(105,0,"a = ",((I+F)/2)T," m
+	Else
+		If Str1!="X" and Str2!="X" and Str3!="X"
+		Then
+			Text(0,0,"Displacement Calculation (2):
+			Text(15,0,"This equation finds d when you
+			Text(30,0,"already have Vi, Vf, and a
+			Text(45,0,"Vf^2 = Vi^2 + 2 * a * d
+			Text(60,0,"d = (f^2 - i^2) / (2 * a)
+			Text(75,0,"d = (",F,"^2 - ",I,"^2) / (2 * ",A,")
+			Text(90,0,"d = (",F^2," - ",I^2,") / ",2A
+			Text(105,0,"d = ",F^2-I^2," / ",2A
+			Text(120,0,"d = ",(F^2-I^2)/2A," m
+		Else
+			If Str2!="X" and Str3!="X" and Str5!="X"
+			Then
+				Text(0,0,"Displacement Calculation (3):
+				Text(15,0,"This equation finds d when you
+				Text(30,0,"already have Vi, t, and a
+				Text(45,0,"d = Vi * t + (a * t^2) / 2
+				Text(60,0,"d = ",I," * ",T," + (",A," * ",T,"^2) / 2
+				Text(75,0,"d = ",IT," + (",A," * ",T^2,") / 2 
+				Text(90,0,"d = ",IT," + ",AT^2," / 2 
+				Text(105,0,"d = ",IT," + ",AT^2/2
+				Text(120,0,"d = ",IT+AT^2/2," m
+			Else
+				Text(0,0,"Displacement Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str5="X"
+Then
+	If Str1!="X" and Str2!="X" and Str4!="X"
+	Then
+		Text(0,0,"Time Calculation (1):
+		Text(15,0,"This equation finds t when you
+		Text(30,0,"already have Vi, Vf, and d
+		Text(45,0,"d = (Vi + Vf) / 2 * t
+		Text(60,0,"t = (2 * d) / (f + 1)
+		Text(75,0,"t = (2 * ",D,") / (",F," + 1)
+		Text(90,0,"t = ",2D," / ",F+1
+		Text(105,0,"t = ",(2D)/(F+1)," s
+	Else
+		If Str1!="X" and Str2!="X" and Str3!="X"
+		Then
+			Text(0,0,"Time Calculation (2):
+			Text(15,0,"This equation finds t when you
+			Text(30,0,"already have Vi, Vf, and a
+			Text(45,0,"Vf = Vi + a * t
+			Text(60,0,"t = (f - i) / a
+			Text(75,0,"t = (",F," - ",I,") / ",A
+			Text(90,0,"t = ",F-I," / ",A
+			Text(105,0,"t = ",(F-I)/A," s
+		Else
+			If Str2!="X" and Str3!="X" and Str4!="X"
+			Then
+				Text(0,0,"Time Calculation (3):
+				Text(15,0,"This equation finds t when you
+				Text(30,0,"already have Vi, d, and a
+				Text(45,0,"d = Vi * t + (a * t^2) / 2
+				Text(60,0,"t = (sqrt(2 * a * d + Vi^2 - 2) -1) / a
+				Text(75,0,"t = (sqrt(2 * ",A," * ",D," + ",I,"^2 - 2) -1) / ",A
+				Text(90,0,"d = (sqrt(2 * ",AD," + ",I^2," - 2) -1) / ",A
+				Text(105,0,"d = (sqrt(",2AD+I^2-2,") -1) / ",A
+				Text(120,0,"d = ",(sqrt(2AD+I^2)-2)/A," s
+			Else
+				Text(0,0,"Time Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+Goto MN
+
+Lbl CM
+Disp "Insert the variables:"
+Disp "Unknown Variables = X"
+Input "Velocity (m/s) = ",A
+Input "Radius (m) = ",B
+Input "Centripetal Force (N) = ",C
+Input "Centripetal Accel. (m/s^2) = ",D
+Input "Mass (kg) = ",E
+Input "Angular Velocity (rad/s) = ",F
+ClrDraw
+Text(0,0,"Centripetal Force Calc. (1):"
+Text(15,1,"Fc = m * Ac"
+Text(30,1,"Fc =",E," * ",D
+Text(45,1,"Fc =",E*D," N"
+Pause 
+ClrDraw
+Text(0,0,"Centripetal Force Calc. (2):"
+Text(15,1,"Fc = (m * V^2) / r"
+Text(30,1,"Fc = (",E*A^2," / ",B
+Text(45,1,"Fc =",(E*A^2)/B," N"
+Pause 
+ClrDraw
+Text(0,0,"Velocity Calculation:"
+Text(15,1,"V = r * Omega"
+Text(30,1,"V =",B," * ",F
+Text(45,1,"V =",B*F," m/s"
+Pause 
+ClrDraw
+Text(0,0,"Centripetal Acceleration Calc. (1):"
+Text(15,1,"Ac = r * Omega^2"
+Text(30,1,"Ac =",B," * ",F^2
+Text(45,1,"Ac =",B*(F^2)," m/s^2"
+Pause 
+ClrDraw
+Text(0,0,"Centripetal Acceleration Calc. (2):"
+Text(15,1,"Ac = V^2 / r"
+Text(30,1,"Ac =",A^2," / ",B
+Text(45,1,"Ac =",(A^2)/B," m/s^2"
+Pause 
+ClrDraw
+Text(0,0,"Period Calculation:"
+Text(15,1,"T = (2 * pi * r) / V"
+Text(30,1,"T =",2*3.14*B," / ",A
+Text(45,1,"T =",(2*3.14*B)/A," s"
+Pause 
+ClrDraw
+Goto MN
+
+Lbl EL
+Disp "Insert the variables:"
+Disp "Unknown Variables = 0"
+Input "Force (N) = ",A
+Input "Spring Constant (N/s) = ",B
+Input "Extension (m) = ",C
+Input "Elastic Pot. En. (J) = ",D
+ClrDraw
+Text(0,0,"Force Calculation:"
+Text(15,1,"F = k * x"
+Text(30,1,"F =",B," * ",C
+Text(45,1,"F =",B*C," N"
+Pause 
+ClrDraw
+Text(0,0,"Elastic Potential Calc. (1):"
+Text(15,1,"Ep = 1/2 * F * x"
+Text(30,1,"Ep = 1/2 *",A," * ",C
+Text(45,1,"Ep = 1/2 *",A*C
+Text(60,1,"Ep = ",(A*C)/2," J"
+Pause 
+ClrDraw
+Text(0,0,"Elastic Potential Calc. (2):"
+Text(15,1,"Ep = 1/2 * k * x^2"
+Text(30,1,"Ep = 1/2 * ",B," * ",C^2
+Text(45,1,"Ep = 1/2 *",B*(C^2)
+Text(60,1,"Ep = ",B*(C^2)/2," J"
+Pause 
+ClrDraw
+Goto MN
+
+Lbl PW
+Disp "Insert the variables:"
+Disp "Unknown Variables = X"
+Input "Work (J) = ",Str1
+Input "Power (W) = ",Str2
+Input "Force (N) = ",Str3
+Input "Velocity (m/s) = ",Str4
+Input "Displacement (m) = ",Str5
+Input "Time (s) = ",Str6
+If Str1!="X"
+expr(Str1->W
+If Str2!="X"
+expr(Str2->P
+If Str3!="X"
+expr(Str3->F
+If Str4!="X"
+expr(Str4->V
+If Str5!="X"
+expr(Str5->D
+If Str6!="X"
+expr(Str6->T
+ClrDraw
+
+If Str1="X"
+Then
+	If Str2!="X" and Str6!="X"
+	Then
+		Text(0,0,"Work Calculation (1):
+		Text(15,0,"This equation finds w when you
+		Text(30,0,"already have p and t
+		Text(45,0,"p = w / t
+		Text(60,0,"w = p * t
+		Text(75,0,"w = ",P," * ",T
+		Text(90,0,"w = ",PT," J
+	Else
+		If Str3!="X" and Str5!="X"
+		Then
+			Text(0,0,"Work Calculation (2):
+			Text(15,0,"This equation finds w when you
+			Text(30,0,"already have f and d
+			Text(45,0,"w = f * d
+			Text(60,0,"w = ",F," * ",D
+			Text(75,0,"w = ",FD," J
+		Else
+			If Str3!="X" and Str4!="X" and Str6!="X"
+			Then
+				Text(0,0,"Work Calculation (3):
+				Text(15,0,"These equations finds w when you
+				Text(30,0,"already have f, v, and t
+				Text(45,0,"p = f * v AND p = w / t
+				Text(60,0,"f * v = w / t
+				Text(75,0,"w = f * v * t
+				Text(90,0,"w = ",F," * ",V," * ",T
+				Text(105,0,"w = ",FVD," J
+			Else
+				Text(0,0,"Work Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str2="X"
+Then
+	If Str1!="X" and Str6!="X"
+	Then
+		Text(0,0,"Power Calculation (1):
+		Text(15,0,"This equation finds p when you
+		Text(30,0,"already have w and t
+		Text(45,0,"p = w / t
+		Text(60,0,"p = ",W," / ",T
+		Text(75,0,"p = ",W/T," W
+	Else
+		If Str3!="X" and Str4!="X"
+		Then
+			Text(0,0,"Power Calculation (2):
+			Text(15,0,"This equation finds p when you
+			Text(30,0,"already have f and v
+			Text(45,0,"p = f * v
+			Text(60,0,"p = ",F," * ",V
+			Text(75,0,"p = ",FV," W
+		Else
+			If Str3!="X" and Str5!="X" and Str6!="X"
+			Then
+				Text(0,0,"Power Calculation (3):
+				Text(15,0,"This equation finds p when you
+				Text(30,0,"already have f, d, and t
+				Text(45,0,"p = (f * d) / t
+				Text(60,0,"p = (",F," * ",D,") / ",T
+				Text(75,0,"p = ",FD," / ",T
+				Text(90,0,"p = ",FD/T," W
+			Else
+				Text(0,0,"Power Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str3="X"
+Then
+	If Str2!="X" and Str4!="X"
+	Then
+		Text(0,0,"Force Calculation (1):
+		Text(15,0,"This equation finds f when you
+		Text(30,0,"already have p and v
+		Text(45,0,"p = f * v
+		Text(60,0,"f = p / v
+		Text(75,0,"f = ",P," / ",V
+		Text(90,0,"f = ",P/V," N
+	Else
+		If Str1!="X" and Str5!="X"
+		Then
+			Text(0,0,"Force Calculation (2):
+			Text(15,0,"This equation finds f when you
+			Text(30,0,"already have w and d
+			Text(45,0,"w = f * d
+			Text(60,0,"f = w / d
+			Text(75,0,"f = ",W," / ",D
+			Text(90,0,"f = ",W/D," N
+		Else
+			If Str2!="X" and Str5!="X" and Str6!="X"
+			Then
+				Text(0,0,"Force Calculation (3):
+				Text(15,0,"This equation finds f when you
+				Text(30,0,"already have p, d, and t
+				Text(45,0,"p = f * (d / t)
+				Text(60,0,"f = p / (d / t)
+				Text(75,0,"f = ",P," / (",D," / ",T,")
+				Text(90,0,"f = ",P," / ",D/T
+				Text(105,0,"f = ",P/(D/T)," N
+			Else
+				Text(0,0,"Force Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str4="X"
+Then
+	If Str2!="X" and Str3!="X"
+	Then
+		Text(0,0,"Velocity Calculation (1):
+		Text(15,0,"This equation finds v when you
+		Text(30,0,"already have f and p
+		Text(45,0,"p = f * v
+		Text(60,0,"v = p / f
+		Text(75,0,"v = ",P," / ",F
+		Text(90,0,"v = ",P/F," m/s
+		Text(105,0,"a = ",((I+F)/2)T," m
+	Else
+		If Str1!="X" and Str2!="X" and Str3!="X"
+		Then
+			Text(0,0,"Velocity Calculation (2):
+			Text(15,0,"These equations finds v when you
+			Text(30,0,"already have f, w, and t
+			Text(45,0,"p = f * v AND p = w / t
+			Text(60,0,"v = (w / t) / f
+			Text(75,0,"v = (",W," / ",T,") / ",F
+			Text(90,0,"v = ",W/T," / ",F
+			Text(105,0,"v = ",W/T/F," m/s
+			"w/t/f lmfao
+		Else
+			Text(0,0,"Velocity Calculation is
+			Text(15,0,"impossible. Too little init. data.
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str5="X"
+Then
+	If Str2!="X" and Str3!="X" and Str6!="X"
+	Then
+		Text(0,0,"Displacement Calculation (1):
+		Text(15,0,"This equation finds d when you
+		Text(30,0,"already have v and t
+		Text(45,0,"d = v * t
+		Text(60,0,"d = ",V," * ",T
+		Text(75,0,"d = ",VT," m
+	Else
+		If Str1!="X" and Str3!="X"
+		Then
+			Text(0,0,"Displacement Calculation (2):
+			Text(15,0,"This equation finds d when you
+			Text(30,0,"already have w and f
+			Text(45,0,"w = f * d
+			Text(60,0,"d = w / f
+			Text(75,0,"d = ",W," / ",F
+			Text(90,0,"d = ",W/F," m
+		Else
+			If Str2!="X" and Str3!="X" and Str4!="X"
+			Then
+				Text(0,0,"Displacement Calculation (3):
+				Text(15,0,"This equation finds d when you
+				Text(30,0,"already have p, f, and t
+				Text(45,0,"p = f * (d / t)
+				Text(60,0,"d = (p / f) * t
+				Text(75,0,"d = (",P," / ",F,") * ",T
+				Text(90,0,"d = ",P/F," * ",T
+				Text(105,0,"d = ",P/FT," m
+			Else
+				Text(0,0,"Displacement Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+If Str6="X"
+Then
+	If Str1!="X" and Str2!="X"
+	Then
+		Text(0,0,"Time Calculation (1):
+		Text(15,0,"This equation finds t when you
+		Text(30,0,"already have w and p
+		Text(45,0,"p = w / t
+		Text(60,0,"t = w / p
+		Text(75,0,"t = ",W," / ",P
+		Text(90,0,"t = ",W/P," s
+	Else
+		If Str2!="X" and Str3!="X" and Str5!="X"
+		Then
+			Text(0,0,"Time Calculation (2):
+			Text(15,0,"This equation finds t when you
+			Text(30,0,"already have d, f, and p
+			Text(45,0,"p = f * (d / t)
+			Text(60,0,"t = (d * f) / p
+			Text(75,0,"t = (",D," * ",F,") / ",P
+			Text(90,0,"t = ",DF," / ",P
+			Text(105,0,"t = ",DF/P," s
+		Else
+			If Str1!="X" and Str3!="X" and Str4!="X"
+			Then
+				Text(0,0,"Time Calculation (3):
+				Text(15,0,"This equation finds t when you
+				Text(30,0,"already have w, f, and v
+				Text(45,0,"t = w / (f * v)
+				Text(60,0,"t = ",W," / (",F," * ",V,")
+				Text(75,0,"t = ",W," / ",FV
+				Text(90,0,"t = ",W/(FV)," s
+			Else
+				Text(0,0,"Time Calculation is
+				Text(15,0,"impossible. Too little init. data.
+			End
+		End
+	End
+	Pause 
+	ClrDraw
+End
+
+Goto MN
+
+Lbl QT
+ClrHome
+Stop
